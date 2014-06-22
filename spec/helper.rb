@@ -1,19 +1,3 @@
-require 'simplecov'
-
-module SimpleCov::Configuration
-  def clean_filters
-    @filters = []
-  end
-end
-
-SimpleCov.configure do
-  clean_filters
-  load_adapter 'test_frameworks'
-end
-
-ENV["COVERAGE"] && SimpleCov.start do
-  add_filter "/.rvm/"
-end
 require 'rubygems'
 require 'bundler'
 begin
@@ -23,12 +7,11 @@ rescue Bundler::BundlerError => e
   $stderr.puts "Run `bundle install` to install missing gems"
   exit e.status_code
 end
-require 'test/unit'
-require 'shoulda'
+
+require 'minitest/autorun'
+require 'minitest/reporters'
+Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
-require 'currentuser-data'
-
-class Test::Unit::TestCase
-end
+require 'currentuser/data'
