@@ -8,11 +8,11 @@ module Currentuser
       if ENV['CURRENTUSER_APPLICATION_ID_FOR_TESTS']
 
         before do
-          Application.application_id = ENV['CURRENTUSER_APPLICATION_ID_FOR_TESTS']
+          BaseResource.application_id = ENV['CURRENTUSER_APPLICATION_ID_FOR_TESTS']
         end
 
         after do
-          Application.application_id = nil
+          BaseResource.application_id = nil
         end
 
         describe '#current' do

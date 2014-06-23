@@ -2,17 +2,19 @@
 
 This is an experimental project. It should not be used for now.
 
-## Usage
-
-### Users
+## Configuration
 
 To define the connected application use:
 
 ```ruby
-Currentuser::Data::User.application_id = 'my_application_id'
+Currentuser::Data::BaseResource.application_id = 'my_application_id'
 ```
 
-Then you can use ActiveResource API. Note that only a small part of this API is available:
+## Usage
+
+### Users
+
+You can use ActiveResource API. Note that only a small part of this API is available:
 
 ```ruby
 # Create a user
@@ -28,7 +30,6 @@ Currentuser::Data::User.delete(:clear)
 To retrieve data of your application:
 
 ```ruby
-Currentuser::Data::Application.application_id = 'my_application_id'
 application = Currentuser::Data::Application.current
 ```
 

@@ -8,12 +8,12 @@ module Currentuser
       if ENV['CURRENTUSER_APPLICATION_ID_FOR_TESTS']
 
         before do
-          User.application_id = ENV['CURRENTUSER_APPLICATION_ID_FOR_TESTS']
+          BaseResource.application_id = ENV['CURRENTUSER_APPLICATION_ID_FOR_TESTS']
         end
 
         after do
           User.delete(:clear)
-          User.application_id = nil
+          BaseResource.application_id = nil
         end
 
         describe 'user creation' do
