@@ -8,6 +8,9 @@ Gemfile.lock
 # jeweler generated
 pkg
 
+# dotenv file
+.env
+
 # Have editor/IDE/OS specific files you need to ignore? Consider using a global gitignore:
 #
 # * Create a file at ~/.gitignore

@@ -1,5 +1,2 @@
-module Currentuser
-  module Data
-
-  end
-end
+require 'awesome_print'
+require 'currentuser/data/models/user'

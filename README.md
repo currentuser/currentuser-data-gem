@@ -2,6 +2,25 @@
 
 This is an experimental project. It should not be used for now.
 
+## Usage
+
+To define the connected application use:
+
+```ruby
+Currentuser::Data::User.application_id = 'my_application_id'
+```
+
+Then you can use ActiveResource API. Note that only a small part of this API is available:
+
+```ruby
+# Create a user
+user = Currentuser::Data::User.new(email: 'email@example.org', password 'my password')
+user.save
+
+# Delete all users in the application (available only for test applications)
+Currentuser::Data::User.delete(:clear)
+```
+
 ## Contributing to currentuser-data (not recommended yet)
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
