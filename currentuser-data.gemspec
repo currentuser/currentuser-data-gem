@@ -25,7 +25,9 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "VERSION",
+    "currentuser-data.gemspec",
     "lib/currentuser/data.rb",
+    "lib/currentuser/data/models/user.rb",
     "spec/currentuser/data/user_spec.rb",
     "spec/helper.rb"
   ]
@@ -41,12 +43,16 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<activeresource>, [">= 0"])
       s.add_development_dependency(%q<awesome_print>, [">= 0"])
       s.add_development_dependency(%q<minitest-reporters>, [">= 0"])
+      s.add_development_dependency(%q<request_store>, [">= 0"])
+      s.add_development_dependency(%q<dotenv>, [">= 0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 2.0.1"])
     else
       s.add_dependency(%q<activeresource>, [">= 0"])
       s.add_dependency(%q<awesome_print>, [">= 0"])
       s.add_dependency(%q<minitest-reporters>, [">= 0"])
+      s.add_dependency(%q<request_store>, [">= 0"])
+      s.add_dependency(%q<dotenv>, [">= 0"])
       s.add_dependency(%q<bundler>, ["~> 1.0"])
       s.add_dependency(%q<jeweler>, ["~> 2.0.1"])
     end
@@ -54,6 +60,8 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<activeresource>, [">= 0"])
     s.add_dependency(%q<awesome_print>, [">= 0"])
     s.add_dependency(%q<minitest-reporters>, [">= 0"])
+    s.add_dependency(%q<request_store>, [">= 0"])
+    s.add_dependency(%q<dotenv>, [">= 0"])
     s.add_dependency(%q<bundler>, ["~> 1.0"])
     s.add_dependency(%q<jeweler>, ["~> 2.0.1"])
   end

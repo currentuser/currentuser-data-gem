@@ -121,6 +121,14 @@ module Currentuser
             user.managed_application_id.must_equal ENV['CURRENTUSER_APPLICATION_ID_FOR_TESTS']
           end
 
+          it 'can retrieve validation errors' do
+            User.create(email: 'email@test.com', password: 'pass1')
+
+            user = User.new(email: 'email@test.com', password: 'pass2')
+            user.save.must_equal false
+            expected = {:email=>['has already been taken']}
+            user.errors.to_hash.must_equal expected
+          end
         end
       end
     end

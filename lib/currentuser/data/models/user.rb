@@ -3,7 +3,7 @@ module Currentuser
   module Data
     class User < ActiveResource::Base
       # currentuser-data is in development. We use a fixed local endpoint for now.
-      self.site = 'http://localhost:3000'
+      self.site = 'http://localhost:3002'
 
       class << self
         attr_writer :application_id
