@@ -33,6 +33,29 @@ To retrieve data of your application:
 application = Currentuser::Data::Application.current
 ```
 
+## Testing
+
+See in `lib/currentuser/data/test/helpers` some module to includes to your Test class. Use `UseReadApi` if don't add
+ any data or `UseWriteApi` if you add data.
+
+ **The content of your test application will be deleted at the end of each test.**
+ (but there is a failsafe: if the application is not a *test* application, the test won't be run)
+
+```ruby
+require 'test_helper'
+
+Currentuser::Data::Test::UseReadApi.currentuser_application_id_for_tests = 'my_test_application_id'
+
+class MyTest <ActiveSupport::TestCase
+  include Currentuser::Data::Test::UseWriteApi
+
+  test 'foo' do
+    Currentuser::Data::User.create(email: 'email@example.org', password: 'password')
+  end
+end
+
+```
+
 ## Contributing to currentuser-data (not recommended yet)
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
