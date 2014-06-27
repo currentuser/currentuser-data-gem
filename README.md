@@ -27,10 +27,16 @@ Currentuser::Data::User.delete(:clear)
 
 ### Application
 
-To retrieve data of your application:
+To retrieve data from your application:
 
 ```ruby
+# Retrieve basic information
 application = Currentuser::Data::Application.current
+application.name
+
+# Retrieve users
+users = application.users('your application secret key')
+users.first.email
 ```
 
 ## Testing
@@ -73,6 +79,8 @@ Setting `CURRENTUSER_APPLICATION_ID_FOR_TESTS` is required to run all the tests.
 
 * _test_ should be set to true
 * _url_ can be set to any value
+
+Optionally you can set `CURRENTUSER_SECRET_KEY_FOR_TESTS` (the secret key of the test application) and even more tests will be run.
 
 ## Copyright
 
