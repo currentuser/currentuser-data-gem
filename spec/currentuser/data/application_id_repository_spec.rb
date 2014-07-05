@@ -47,6 +47,40 @@ module Currentuser
         end
       end
 
+      describe '#with_application_id' do
+        it 'raises if already set' do
+          ApplicationIdRepository.set_application_id_for_request 'my_application_id'
+          -> {
+            ApplicationIdRepository.with_application_id('any_application_id') {
+              nil.wont_be_nil # Check that block is never called
+            }
+          }.must_raise(RuntimeError)
+        end
+        it 'sets and resets application id' do
+          ApplicationIdRepository.send(:get_application_id_for_request).must_be_nil
+          ApplicationIdRepository.with_application_id('my_application_id') do
+            ApplicationIdRepository.send(:get_application_id_for_request).must_equal 'my_application_id'
+          end
+          ApplicationIdRepository.send(:get_application_id_for_request).must_be_nil
+        end
+        it 'resets application id even if exception' do
+          begin
+            ApplicationIdRepository.with_application_id('my_application_id') do
+              ApplicationIdRepository.send(:get_application_id_for_request).must_equal 'my_application_id'
+              raise
+            end
+          rescue StandardError
+            ApplicationIdRepository.send(:get_application_id_for_request).must_be_nil
+          end
+        end
+        it 'returns the result of the block' do
+          result = ApplicationIdRepository.with_application_id('my_application_id') do
+            next 'my result'
+          end
+          result.must_equal 'my result'
+        end
+      end
+
       describe '#resolve_application_id' do
         it 'returns request store content if set' do
           ApplicationIdRepository.set_application_id_for_request 'my_application_id'
