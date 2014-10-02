@@ -11,6 +11,7 @@ module Currentuser
 
         # Used by ActiveResource
         def headers
+          raise "No application id found"  unless ApplicationIdRepository.resolve_application_id # Fail fast (ruby would raise [an obscure way] in this case)
           return {'CURRENTUSER_APPLICATION_ID' => ApplicationIdRepository.resolve_application_id}
         end
 
