@@ -15,11 +15,14 @@ module Currentuser
           return {'CURRENTUSER_APPLICATION_ID' => ApplicationIdRepository.resolve_application_id}
         end
 
+        # Part of private API because it happens that no action of the public API needs an external call of this method
+        # for now. Could be part of public API in the future.
+        # @api private
         def with_authentication(user, password)
           # We have to set 'user' and 'password' just for this call. In order to do that we use a Mutex.
           # We could do a non-blocking implementation but that would be slightly more complicated as it would require
           # overriding #user and #password methods.
-          return Mutex.new.synchronize do
+          return mutex.synchronize do
             next begin
               self.user = user
               self.password = password
@@ -33,6 +36,10 @@ module Currentuser
           end
         end
 
+        private
+        def mutex
+          return @mutex ||= Mutex.new
+        end
       end
     end
   end

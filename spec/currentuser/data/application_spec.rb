@@ -68,6 +68,22 @@ module Currentuser
             end
           end
         end
+
+        describe '#with_authentication_and_application_id' do
+
+          it 'sets application id, user and password in the block only, and returns block value' do
+            Application.with_authentication_and_application_id('app_1', 'password_1') do
+              ApplicationIdRepository.resolve_application_id.must_equal 'app_1'
+              Application.user.must_equal 'app_1'
+              Application.password.must_equal 'password_1'
+              next 'value'
+            end.must_equal 'value'
+            ApplicationIdRepository.resolve_application_id.wont_equal 'app_1'
+            Application.user.must_be_nil
+            Application.password.must_be_nil
+          end
+
+        end
       end
     end
   end
