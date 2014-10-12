@@ -19,13 +19,14 @@ module Currentuser
         # Convenient method to use given application_id for a block only, and a threadsafe way.
         def with_application_id(application_id)
           ensure_request_store_available!
-          request_safe = request_safe?
+          old_exist = RequestStore.exist?('currentuser-data-application_id')
+          old_value = RequestStore.store['currentuser-data-application_id']
           return begin
             set_application_id_for_request application_id
             yield
           ensure
             # Restore initial state
-            request_safe ? reset_application_id_for_request : remove_application_id_for_request
+            old_exist ? set_application_id_for_request(old_value) : remove_application_id_for_request
           end
         end
 

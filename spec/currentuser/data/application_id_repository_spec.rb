@@ -102,6 +102,13 @@ module Currentuser
           end
           RequestStore.store['currentuser-data-application_id'].must_be_nil
         end
+        it 'restore existing application id' do
+          ApplicationIdRepository.send(:set_application_id_for_request, 'old_application_id')
+          ApplicationIdRepository.with_application_id('my_application_id') do
+            RequestStore.store['currentuser-data-application_id'].must_equal 'my_application_id'
+          end
+          RequestStore.store['currentuser-data-application_id'].must_equal 'old_application_id'
+        end
         it 'resets application id even if exception' do
           begin
             ApplicationIdRepository.with_application_id('my_application_id') do
