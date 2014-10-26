@@ -23,7 +23,7 @@ module Currentuser
             user.save.must_equal true
             user.id.wont_be_nil
             user.email.must_equal 'email@test.com'
-            user.managed_application_id.must_equal ENV['CURRENTUSER_APPLICATION_ID_FOR_TESTS']
+            user.application_id.must_equal ENV['CURRENTUSER_APPLICATION_ID_FOR_TESTS']
           end
 
           it 'can retrieve validation errors' do

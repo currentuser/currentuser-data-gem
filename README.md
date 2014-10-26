@@ -42,10 +42,10 @@ users.first.email
 ## Testing
 
 See in `lib/currentuser/data/test/helpers` some module to includes to your Test class. Use `UseReadApi` if don't add
- any data or `UseWriteApi` if you add data.
+ any data, or `UseWriteApi` if you add data.
 
  **The content of your test application will be deleted at the end of each test.**
- (but there is a failsafe: if the application is not a *test* application, the test won't be run)
+ (note that if the given application is not a *test* application, the test will fail and its content will not be deleted)
 
 ```ruby
 require 'test_helper'
