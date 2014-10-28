@@ -24,6 +24,7 @@ module Currentuser
             application.name.wont_be_nil
             application.url.wont_be_nil
             application.test.must_equal true
+            application.is_sign_up_allowed.must_equal true
           end
         end
 
