@@ -28,9 +28,9 @@ module Currentuser
             User.headers['CURRENTUSER_APPLICATION_ID'].must_equal 'my_application_id'
           end
         end
-        it 'raises if no application id' do
+        it 'is empty if no application id' do
           ApplicationIdRepository.with_application_id nil do
-            -> {User.headers}.must_raise RuntimeError
+            User.headers.must_equal({})
           end
         end
         it 'is threadsafe' do

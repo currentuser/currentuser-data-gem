@@ -11,8 +11,11 @@ module Currentuser
 
         # Used by ActiveResource
         def headers
-          raise "No application id found"  unless ApplicationIdRepository.resolve_application_id # Fail fast (ruby would raise [an obscure way] in this case)
-          return {'CURRENTUSER_APPLICATION_ID' => ApplicationIdRepository.resolve_application_id}
+          headers = {}
+          if ApplicationIdRepository.resolve_application_id
+            headers['CURRENTUSER_APPLICATION_ID'] = ApplicationIdRepository.resolve_application_id
+          end
+          return headers
         end
 
         # Part of private API because it happens that no action of the public API needs an external call of this method
