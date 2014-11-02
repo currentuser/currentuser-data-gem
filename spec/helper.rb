@@ -14,6 +14,7 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'currentuser/data'
 
+Currentuser::Data::BaseResource.site = ENV['CURRENTUSER_DATA_URL']
 # Check that test application (if any) is really a test one
 if ENV['CURRENTUSER_APPLICATION_ID_FOR_TESTS']
   Currentuser::Data::Application.application_id = ENV['CURRENTUSER_APPLICATION_ID_FOR_TESTS']

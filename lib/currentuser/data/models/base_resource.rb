@@ -2,8 +2,8 @@ require 'active_resource'
 module Currentuser
   module Data
     class BaseResource < ActiveResource::Base
-      # currentuser-data is in development. We use a fixed local endpoint for now.
-      self.site = 'http://localhost:3002'
+      # Note that this website does not exist for now.
+      self.site = 'http://data.currentuser.io'
 
       class << self
 
