@@ -31,7 +31,7 @@ module Currentuser
 
             user = User.new(email: 'email@test.com', password: 'pass2')
             user.save.must_equal false
-            expected = {:email=>['has already been taken']}
+            expected = {:email=>['taken']}
             user.errors.to_hash.must_equal expected
           end
         end
