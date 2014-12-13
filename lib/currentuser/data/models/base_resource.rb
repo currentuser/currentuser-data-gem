@@ -7,13 +7,13 @@ module Currentuser
 
       class << self
 
-        delegate :application_id=, to: ApplicationIdRepository
+        delegate :project_id=, to: ProjectIdRepository
 
         # Used by ActiveResource
         def headers
           headers = {}
-          if ApplicationIdRepository.resolve_application_id
-            headers['CURRENTUSER_APPLICATION_ID'] = ApplicationIdRepository.resolve_application_id
+          if ProjectIdRepository.resolve_project_id
+            headers['CURRENTUSER_PROJECT_ID'] = ProjectIdRepository.resolve_project_id
           end
           return headers
         end

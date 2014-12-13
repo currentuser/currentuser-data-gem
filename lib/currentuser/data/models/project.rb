@@ -1,10 +1,10 @@
 module Currentuser
   module Data
-    class Application < BaseResource
+    class Project < BaseResource
       include ActiveResource::Singleton
 
-      def users(application_secret_key)
-        return User.with_authentication(id, application_secret_key) do
+      def users(project_secret_key)
+        return User.with_authentication(id, project_secret_key) do
           next User.all
         end
       end

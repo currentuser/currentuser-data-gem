@@ -10,32 +10,32 @@ module Currentuser
       describe '#headers' do
 
         before do
-          ApplicationIdRepository.class.instance_variable_get(:@application_id).must_be_nil
-          RequestStore.exist?('currentuser-data-application_id').must_equal false
+          ProjectIdRepository.class.instance_variable_get(:@project_id).must_be_nil
+          RequestStore.exist?('currentuser-data-project_id').must_equal false
         end
 
         after do
-          ApplicationIdRepository.class.instance_variable_set(:@application_id, nil)
-          RequestStore.delete('currentuser-data-application_id')
+          ProjectIdRepository.class.instance_variable_set(:@project_id, nil)
+          RequestStore.delete('currentuser-data-project_id')
         end
 
-        it 'contains application id' do
-          User.application_id = 'my_application_id'
-          User.headers['CURRENTUSER_APPLICATION_ID'].must_equal 'my_application_id'
+        it 'contains project id' do
+          User.project_id = 'my_project_id'
+          User.headers['CURRENTUSER_PROJECT_ID'].must_equal 'my_project_id'
         end
-        it 'uses application from request store if set' do
-          ApplicationIdRepository.with_application_id 'my_application_id' do
-            User.headers['CURRENTUSER_APPLICATION_ID'].must_equal 'my_application_id'
+        it 'uses project from request store if set' do
+          ProjectIdRepository.with_project_id 'my_project_id' do
+            User.headers['CURRENTUSER_PROJECT_ID'].must_equal 'my_project_id'
           end
         end
-        it 'is empty if no application id' do
-          ApplicationIdRepository.with_application_id nil do
+        it 'is empty if no project id' do
+          ProjectIdRepository.with_project_id nil do
             User.headers.must_equal({})
           end
         end
         it 'is threadsafe' do
-          # Set a global value for application id
-          User.application_id = 'my_application_id'
+          # Set a global value for project id
+          User.project_id = 'my_project_id'
 
           before_in_threads =[]
           after_in_threads =[]
@@ -43,10 +43,10 @@ module Currentuser
           # Setting different values in other threads
           threads = 3.times.map do |i|
             next Thread.new do
-              before_in_threads[i] = User.headers['CURRENTUSER_APPLICATION_ID']
-              ApplicationIdRepository.with_application_id "my_application_id#{i}" do
+              before_in_threads[i] = User.headers['CURRENTUSER_PROJECT_ID']
+              ProjectIdRepository.with_project_id "my_project_id#{i}" do
                 sleep (2 - i) * 0.1
-                after_in_threads[i] = User.headers['CURRENTUSER_APPLICATION_ID']
+                after_in_threads[i] = User.headers['CURRENTUSER_PROJECT_ID']
                 sleep i * 0.1
               end
             end
@@ -54,14 +54,14 @@ module Currentuser
           threads.each(&:join)
 
           before_in_threads.each do |value|
-            value.must_equal 'my_application_id'
+            value.must_equal 'my_project_id'
           end
           after_in_threads.each_with_index do |value, index|
-            value.must_equal "my_application_id#{index}"
+            value.must_equal "my_project_id#{index}"
           end
 
           # Other threads should not impact value in current thread
-          User.headers['CURRENTUSER_APPLICATION_ID'].must_equal 'my_application_id'
+          User.headers['CURRENTUSER_PROJECT_ID'].must_equal 'my_project_id'
         end
       end
 

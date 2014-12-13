@@ -1,5 +1,5 @@
 require 'awesome_print'
-require 'currentuser/data/models/application_id_repository'
+require 'currentuser/data/models/project_id_repository'
 require 'currentuser/data/models/base_resource'
-require 'currentuser/data/models/application'
+require 'currentuser/data/models/project'
 require 'currentuser/data/models/user'

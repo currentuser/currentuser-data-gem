@@ -5,15 +5,15 @@ module Currentuser
 
     describe User do
 
-      if ENV['CURRENTUSER_APPLICATION_ID_FOR_TESTS']
+      if ENV['CURRENTUSER_PROJECT_ID_FOR_TESTS']
 
         before do
-          BaseResource.application_id = ENV['CURRENTUSER_APPLICATION_ID_FOR_TESTS']
+          BaseResource.project_id = ENV['CURRENTUSER_PROJECT_ID_FOR_TESTS']
         end
 
         after do
           User.delete(:clear)
-          BaseResource.application_id = nil
+          BaseResource.project_id = nil
         end
 
         describe 'user creation' do
@@ -23,7 +23,7 @@ module Currentuser
             user.save.must_equal true
             user.id.wont_be_nil
             user.email.must_equal 'email@test.com'
-            user.application_id.must_equal ENV['CURRENTUSER_APPLICATION_ID_FOR_TESTS']
+            user.project_id.must_equal ENV['CURRENTUSER_PROJECT_ID_FOR_TESTS']
           end
 
           it 'can retrieve validation errors' do

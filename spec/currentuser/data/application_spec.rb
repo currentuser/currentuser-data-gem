@@ -3,52 +3,52 @@ require 'helper'
 module Currentuser
   module Data
 
-    describe Application do
+    describe Project do
 
-      if ENV['CURRENTUSER_APPLICATION_ID_FOR_TESTS']
+      if ENV['CURRENTUSER_PROJECT_ID_FOR_TESTS']
 
         before do
-          BaseResource.application_id = ENV['CURRENTUSER_APPLICATION_ID_FOR_TESTS']
+          BaseResource.project_id = ENV['CURRENTUSER_PROJECT_ID_FOR_TESTS']
         end
 
         after do
-          BaseResource.application_id = nil
+          BaseResource.project_id = nil
         end
 
         describe '#current' do
 
           it 'retrieves data' do
-            application = Application.current
+            project = Project.current
 
-            application.id.must_equal ENV['CURRENTUSER_APPLICATION_ID_FOR_TESTS']
-            application.name.wont_be_nil
-            application.url.wont_be_nil
-            application.test.must_equal true
-            application.is_sign_up_allowed.must_equal true
+            project.id.must_equal ENV['CURRENTUSER_PROJECT_ID_FOR_TESTS']
+            project.name.wont_be_nil
+            project.url.wont_be_nil
+            project.test.must_equal true
+            project.is_sign_up_allowed.must_equal true
           end
         end
 
         describe '#users' do
 
           it 'raises UnauthorizedAccess if no secret key' do
-            application = Application.current
+            project = Project.current
             assert_raises ActiveResource::UnauthorizedAccess do
-              application.users(nil)
+              project.users(nil)
             end
           end
 
           it 'raises UnauthorizedAccess if wrong secret key' do
-            application = Application.current
+            project = Project.current
             assert_raises ActiveResource::UnauthorizedAccess do
-              application.users('wrong secret key')
+              project.users('wrong secret key')
             end
           end
 
           if ENV['CURRENTUSER_SECRET_KEY_FOR_TESTS']
 
             it 'returns an empty collection if no user' do
-              application = Application.current
-              assert_equal [], application.users(ENV['CURRENTUSER_SECRET_KEY_FOR_TESTS']).to_a
+              project = Project.current
+              assert_equal [], project.users(ENV['CURRENTUSER_SECRET_KEY_FOR_TESTS']).to_a
             end
 
             describe 'with users' do
@@ -61,7 +61,7 @@ module Currentuser
                 user_1 = User.create(email: 'email1@test.com', password: 'pass1')
                 user_2 = User.create(email: 'email2@test.com', password: 'pass1')
 
-                users = Application.current.users(ENV['CURRENTUSER_SECRET_KEY_FOR_TESTS'])
+                users = Project.current.users(ENV['CURRENTUSER_SECRET_KEY_FOR_TESTS'])
 
                 assert_equal %w(email1@test.com email2@test.com), users.map(&:email)
                 assert_equal [user_1.id, user_2.id], users.map(&:id)

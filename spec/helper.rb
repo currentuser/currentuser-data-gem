@@ -15,11 +15,11 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'currentuser/data'
 
 Currentuser::Data::BaseResource.site = ENV['CURRENTUSER_DATA_URL']
-# Check that test application (if any) is really a test one
-if ENV['CURRENTUSER_APPLICATION_ID_FOR_TESTS']
-  Currentuser::Data::Application.application_id = ENV['CURRENTUSER_APPLICATION_ID_FOR_TESTS']
-  unless Currentuser::Data::Application.current.test?
-    raise 'CURRENTUSER_APPLICATION_ID_FOR_TESTS should correspond to a test application'
+# Check that test project (if any) is really a test one
+if ENV['CURRENTUSER_PROJECT_ID_FOR_TESTS']
+  Currentuser::Data::Project.project_id = ENV['CURRENTUSER_PROJECT_ID_FOR_TESTS']
+  unless Currentuser::Data::Project.current.test?
+    raise 'CURRENTUSER_PROJECT_ID_FOR_TESTS should correspond to a test project'
   end
-  Currentuser::Data::Application.application_id = nil
+  Currentuser::Data::Project.project_id = nil
 end
